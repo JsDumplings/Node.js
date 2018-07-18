@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>一个小型的node前后台交互实例</title>
+</head>
+<body>
+    <h1>登录注册界面</h1>
+    <form action="http://localhost:3000" method="post">
+        <label for="">用户名</label><input type="text" name="name"><br>
+        <label for="">密码</label><input type="password" name="pwd"><br>
+        <input type="submit" value="登录">
+        <input type="reset" value="重置">
+    </form>
+</body>
+</html>
+<script>
+    var inp=document.getElementsByTagName('input');
+    inp[2].onclick=function(){
+        var name=inp[0].value;
+        var pwd=inp[1].value;
+        var data={
+            "name":name,
+            "pwd":pwd
+        };
+        //原生axjx请求
+        var xhr=new XMLHttpRequest();
+        xhr.open("post","http://localhost:3000",true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+         //否则数据无法被正常接收
+        xhr.send(data);
+        xhr.onreadystatechange = function () {
+           if (xhr.readyState == 4 && xhr.status == 200)
+           {     
+               console.log(xhr.responseText);
+            }
+        }
+    }
+</script>
